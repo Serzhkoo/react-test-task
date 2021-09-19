@@ -36,6 +36,10 @@ export const Attributes = styled.div`
       grid-row-gap: 5px;
       margin-top: 10px;
     `;
+export const Label = styled.div`
+      margin-top: 12px;
+      font-size: 12px;
+    `;
 export const AmountChange = styled.div`
       display: flex;
       flex-direction: column;
@@ -44,10 +48,12 @@ export const AmountChange = styled.div`
     `;
 export const Image = styled.div`
       margin-left: 10px;
+      display: flex;
+      align-items: center;
       img {
         display: block;
         width: 105px;
-        height: 137px;
+        max-height: 137px;
         object-fit: cover;        
       };
     `;

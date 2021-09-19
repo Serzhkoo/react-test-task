@@ -23,22 +23,22 @@ type MapDispatchToPropsType = {
 
 type CartPropsType = MapStateToPropsType & MapDispatchToPropsType
 
-class Cart extends React.PureComponent<CartPropsType> {
-  render() {
-    const Cart = styled.div`
+const CartDiv = styled.div`
       max-width: 1097px;
     `;
-    const CartTitle = styled.div`
+const CartTitle = styled.div`
       font-size: 32px;
       font-weight: 700;
       margin-top: 161px;
       margin-bottom: 61px;
     `;
 
+class Cart extends React.PureComponent<CartPropsType> {
+  render() {
     const { addedProducts, decreaseProductAmountAC, increaseProductAmountAC, currentCurrencyName, currentCurrencySymbol } = this.props;
 
     return (
-      <Cart>
+      <CartDiv>
         <CartTitle>
           CART
         </CartTitle>
@@ -56,7 +56,7 @@ class Cart extends React.PureComponent<CartPropsType> {
               />)
             : 'Cart is empty'}
         </div>
-      </Cart>
+      </CartDiv>
     );
   }
 }

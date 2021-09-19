@@ -52,6 +52,10 @@ type AppPropsType =
   & MapDispatchToPropsType
   & ChildProps<{}, ResponseType>
 
+const AppDiv = styled.div`
+      margin: 0 100px;
+    `;
+
 class App extends React.PureComponent<AppPropsType, StateType> {
   constructor(props: AppPropsType) {
     super(props);
@@ -68,7 +72,7 @@ class App extends React.PureComponent<AppPropsType, StateType> {
         currencyName: data.currencies[0]
       });
       if (data && data.categories) {
-        this.setState({ selectedCategoryName: data.categories[0].name });
+        this.setState({ selectedCategoryName: 'all' });
       }
     }
   }
@@ -88,14 +92,11 @@ class App extends React.PureComponent<AppPropsType, StateType> {
   render() {
     if (!this.state.selectedCategoryName) return <div>Loading...</div>;
 
-    const AppDiv = styled.div`
-      margin: 0 100px;
-    `;
-
     const { selectedCategoryName } = this.state;
     const { currentCurrencyName, currentCurrencySymbol, cartItemsNumber } = this.props;
     const data = this.props.data;
     const categories = data && data.categories ? data.categories : [];
+    const allCategories = [{ name: 'all' }].concat(categories);
     const currencies = data && data.currencies ? data.currencies : [];
     const activeCategoryName = categories.length
       ? selectedCategoryName
@@ -112,7 +113,7 @@ class App extends React.PureComponent<AppPropsType, StateType> {
           <Header
             selectedCategoryName={selectedCategoryName}
             setSelectedCategoryName={this.setSelectedCategoryName}
-            categories={categories}
+            categories={allCategories}
             arrayOfCurrencies={arrayOfCurrencies}
             setCurrency={this.setCurrency}
             currentCurrencySymbol={currentCurrencySymbol}
@@ -134,7 +135,7 @@ const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
   return {
     currentCurrencyName: state.app.currentCurrency.currencyName,
     currentCurrencySymbol: state.app.currentCurrency.currencySymbol,
-    cartItemsNumber: state.app.addedProducts.length
+    cartItemsNumber: state.app.addedProducts.reduce((acc: number, prod) => acc + prod.amount, 0)
   };
 };
 

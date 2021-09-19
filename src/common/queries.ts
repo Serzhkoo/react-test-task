@@ -10,14 +10,24 @@ export const categoriesQuery = gql`
 `;
 
 export const productsQuery = gql`
-  query ProductsQuery($title: String!) {
-    category(input: {title: $title}) {
+  query {
+    categories {
       name
       products {
         id
         name
         inStock
         gallery
+        attributes {
+          id
+          name
+          type
+          items {
+            displayValue
+            id
+            value
+          }
+        }
         prices {
           currency
           amount

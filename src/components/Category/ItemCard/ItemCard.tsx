@@ -13,9 +13,11 @@ import {
   Price,
   Text
 } from './ItemCardStyles';
+import { AttributeAndFirstItemIdType } from '../../../redux/app-reducer';
 
 type ItemCardPropsType = {
   product: ProductType
+  onCartClick: (productId: string, attributesAndFirstItemsId: AttributeAndFirstItemIdType[]) => void
   currentCurrencySymbol: string
   currentCurrencyName: string
 }
@@ -24,6 +26,16 @@ class ItemCard extends React.PureComponent<ItemCardPropsType & RouteComponentPro
   onItemClick = () => {
     const { history, product } = this.props;
     history.push(`/product-card/${product.id}`);
+  };
+
+  onCartClick = (event: any) => {
+    event.stopPropagation();
+    const { onCartClick, product } = this.props;
+    const attributesAndFirstItemsId = product.attributes.map(attribute => ({
+      attributeId: attribute.id,
+      firstItemId: attribute.items[0].id
+    }));
+    onCartClick(product.id, attributesAndFirstItemsId);
   };
 
   render() {
@@ -41,7 +53,7 @@ class ItemCard extends React.PureComponent<ItemCardPropsType & RouteComponentPro
           <Price>{currentCurrencySymbol + amount}</Price>
           {product.inStock &&
           <CircleIcon>
-            <img src={circleIcon} alt=""/>
+            <img src={circleIcon} alt="" onClick={this.onCartClick}/>
           </CircleIcon>}
         </ItemContent>
         {!product.inStock &&

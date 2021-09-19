@@ -19,10 +19,7 @@ type HeaderPropsType = {
   cartItemsNumber: number
 }
 
-export class Header extends React.PureComponent<HeaderPropsType> {
-
-  render() {
-    const Header = styled.div`
+const HeaderDiv = styled.div`
       position: fixed;
       margin-left: -100px;
       border-right: 100px solid #FFFFFF;
@@ -38,17 +35,21 @@ export class Header extends React.PureComponent<HeaderPropsType> {
       @media (min-width: 1221px) and (max-width: 1460px) {width: 1000px};
       @media (min-width: 1461px) {width: 1240px};
     `;
-    const HeaderImageDiv = styled.div`
+const HeaderImageDiv = styled.div`
       position: absolute;
       left: 50%;
       top: 24px;
       transform: translate(-50%, 0);
     `;
 
+export class Header extends React.PureComponent<HeaderPropsType> {
+
+  render() {
+
     const { categories, selectedCategoryName, setSelectedCategoryName, arrayOfCurrencies, setCurrency, currentCurrencySymbol, cartItemsNumber } = this.props;
 
     return (
-      <Header>
+      <HeaderDiv>
         <HeaderButtons
           selectedCategoryName={selectedCategoryName}
           setSelectedCategoryName={setSelectedCategoryName}
@@ -61,7 +62,7 @@ export class Header extends React.PureComponent<HeaderPropsType> {
           currentCurrencySymbol={currentCurrencySymbol}
           cartItemsNumber={cartItemsNumber}
         />
-      </Header>
+      </HeaderDiv>
     );
   }
 }

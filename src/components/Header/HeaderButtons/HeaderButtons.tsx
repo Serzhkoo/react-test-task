@@ -11,6 +11,10 @@ type HeaderButtonsPropsType = {
   categories: CategoryType[]
 }
 
+const HeaderButtonsDiv = styled.div`
+      display: flex;
+    `;
+
 class HeaderButtons extends React.PureComponent<HeaderButtonsPropsType & RouteComponentProps> {
   onButtonClick = (buttonName: string) => {
     const { setSelectedCategoryName, history } = this.props;
@@ -19,10 +23,6 @@ class HeaderButtons extends React.PureComponent<HeaderButtonsPropsType & RouteCo
   };
 
   render() {
-    const HeaderButtonsDiv = styled.div`
-      display: flex;
-    `;
-
     const { categories, selectedCategoryName } = this.props;
 
     return (

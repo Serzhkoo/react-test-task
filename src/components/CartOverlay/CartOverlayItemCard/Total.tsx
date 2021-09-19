@@ -29,14 +29,15 @@ type AmountInCurrentCurrencyType = {
   [productId: string]: number
 }
 
-class Total extends React.PureComponent<ChildProps<InputPropsType, ResponseType>> {
-  render() {
-    const Total = styled.div`
+const TotalDiv = styled.div`
       display: flex;
       justify-content: space-between;
       font-weight: 700;
       padding-top: 24px;
     `;
+
+class Total extends React.PureComponent<ChildProps<InputPropsType, ResponseType>> {
+  render() {
 
     const { data, currentCurrencyName, currentCurrencySymbol, addedProducts } = this.props;
     const fetchedCategories = data && data.categories ? data.categories : undefined;
@@ -66,10 +67,10 @@ class Total extends React.PureComponent<ChildProps<InputPropsType, ResponseType>
     const totalAmount = isCurrentCurrencyExist ? total.toFixed(2) : 'Choose another currency'
 
     return (
-      <Total>
+      <TotalDiv>
         <div>Total</div>
         <div>{currentCurrencySymbol + totalAmount}</div>
-      </Total>
+      </TotalDiv>
     );
   }
 }

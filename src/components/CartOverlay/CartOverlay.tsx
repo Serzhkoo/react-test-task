@@ -27,6 +27,7 @@ type MapDispatchToPropsType = {
 
 type CartOverlayPropsType = {
   setIsCartCollapsed: (isCartCollapsed: boolean) => void
+  cartItemsNumber: number
 }
 
 type PropsType =
@@ -47,13 +48,13 @@ class CartOverlay extends React.PureComponent<PropsType> {
 
   render() {
 
-    const { addedProducts, decreaseProductAmountAC, increaseProductAmountAC, currentCurrencyName, currentCurrencySymbol } = this.props;
+    const { addedProducts, decreaseProductAmountAC, increaseProductAmountAC, currentCurrencyName, currentCurrencySymbol, cartItemsNumber } = this.props;
 
     return (
       <Cart onClick={this.onCartOverlayClick}>
         <CartContent>
-          <MyBag><b>My Bag</b>, {addedProducts.length === 1
-            ? `1 item` : `${addedProducts.length} items`}</MyBag>
+          <MyBag><b>My Bag</b>, {cartItemsNumber === 1
+            ? `1 item` : `${cartItemsNumber} items`}</MyBag>
           <div>
             {addedProducts.length
               ? addedProducts.map((prod, index) =>

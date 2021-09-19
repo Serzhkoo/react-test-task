@@ -19,7 +19,8 @@ import {
   ItemCard,
   Name,
   Price,
-  Product
+  Product,
+  Label
 } from './CartOverlayItemCardStyles';
 
 type InputPropsType = {
@@ -60,24 +61,28 @@ class CartOverlayItemCard extends React.PureComponent<ChildProps<InputPropsType,
           <Name>{name}</Name>
           <Price>{currentCurrencySymbol + amount}</Price>
           {attributes.length !== 0 && attributes.map(attribute =>
-            <Attributes key={attribute.id + id}>
-              {attribute.items.map(item =>
-                attribute.type === 'text'
-                  ? <CartButton
-                    key={item.id + id}
-                    isActive={product.attributes[attribute.id] === item.id}
-                    size={'small'}
-                  >{item.value.split('').slice(0, 3).join('')}
-                  </CartButton>
-                  : <SwatchAttributeButton
-                    key={item.id}
-                    size={'small'}
-                    isActive={product.attributes[attribute.id] === item.id}
-                    isSelected={product.attributes[attribute.id] === item.id}
-                    color={item.value}
-                  />
-              )}
-            </Attributes>
+            <React.Fragment key={attribute.id + id}>
+              {attribute.items[0].id.toLowerCase() === 'yes' &&
+              <Label>{attribute.name}</Label>}
+              <Attributes>
+                {attribute.items.map(item =>
+                  attribute.type === 'text'
+                    ? <CartButton
+                      key={item.id + id}
+                      isActive={product.attributes[attribute.id] === item.id}
+                      size={'small'}
+                    >{item.value.split('').slice(0, 3).join('')}
+                    </CartButton>
+                    : <SwatchAttributeButton
+                      key={item.id}
+                      size={'small'}
+                      isActive={product.attributes[attribute.id] === item.id}
+                      isSelected={product.attributes[attribute.id] === item.id}
+                      color={item.value}
+                    />
+                )}
+              </Attributes>
+            </React.Fragment>
           )}
         </Product>
         <ImageAndAmount>

@@ -1,18 +1,18 @@
 import React from 'react';
-import styled from 'styled-components';
 
 import vector from '../../../assets/Vector.svg';
 import emptyCart from '../../../assets/Empty Cart.svg';
 import CartOverlay from '../../CartOverlay/CartOverlay';
 import {
-  HeaderCurrencyCartDiv,
-  Currency,
   BackDrop,
   Cart,
   Currencies,
+  Currency,
   CurrencySwitcher,
   CurrentCurrency,
-  NumberOfItems
+  HeaderCurrencyCartDiv,
+  NumberOfItems,
+  Vector
 } from './HeaderCurrencyCartStyles';
 
 type StateType = {
@@ -77,14 +77,6 @@ export class HeaderCurrencyCart extends React.PureComponent<HeaderCurrencyCartPr
   render() {
     const { areCurrenciesCollapsed, isCartCollapsed } = this.state;
 
-    const Vector = styled.div`
-      margin-left: 10px;
-      img {
-        margin-bottom: 2px;
-        ${!areCurrenciesCollapsed && 'transform: scale(1, -1);'}
-      }
-    `;
-
     const { arrayOfCurrencies, setCurrency, currentCurrencySymbol, cartItemsNumber } = this.props;
 
     return (
@@ -92,7 +84,7 @@ export class HeaderCurrencyCart extends React.PureComponent<HeaderCurrencyCartPr
         {!isCartCollapsed && <BackDrop></BackDrop>}
         <CurrentCurrency onClick={this.onCurrencyClick}>
           <div>{currentCurrencySymbol}</div>
-          <Vector>
+          <Vector areCurrenciesCollapsed={areCurrenciesCollapsed}>
             <img src={vector} alt=""/>
           </Vector>
         </CurrentCurrency>
@@ -115,7 +107,10 @@ export class HeaderCurrencyCart extends React.PureComponent<HeaderCurrencyCartPr
           </Currencies>
         </CurrencySwitcher>}
         {!isCartCollapsed &&
-        <CartOverlay setIsCartCollapsed={this.setIsCartCollapsed}/>}
+        <CartOverlay
+          setIsCartCollapsed={this.setIsCartCollapsed}
+          cartItemsNumber={cartItemsNumber}
+        />}
       </HeaderCurrencyCartDiv>
     );
   }

@@ -10,6 +10,12 @@ export const CircleIcon = styled.div`
       img {
         border-radius: 50%;
         transition: 0.3s;
+        :hover {
+          transform: scale(1.2);
+        };
+        :active {
+          transform: scale(1);
+        }
       };
     `;
 export const Item = styled.div`      

@@ -9,23 +9,20 @@ type ButtonPropsType = {
   onButtonClick?: () => void
 }
 
-export class Button extends React.PureComponent<ButtonPropsType> {
-  render() {
-    const { type, width, height, fontSize, onButtonClick, children } = this.props;
-
-    const Button = styled.div`
+const ButtonStyle = styled.div<ButtonPropsType>`
       display: flex;
       justify-content: center;
       align-items: center;
-      width: ${width}px;
-      height: ${height}px;
-      box-sizing: border-box;
-      font-weight: 600;
-      font-size: ${fontSize}px;
       cursor: default;
       transition: 0.3s;
+      box-sizing: border-box;
+      font-weight: 600;
+      ${({width, height, fontSize, type}) =>
+      `width: ${width}px;
+      height: ${height}px;
+      font-size: ${fontSize}px;
       ${type === 'primary'
-      ? `
+  ? `
         background-color: #5ECE7B;
         color: #FFFFFF;
         :hover {
@@ -35,7 +32,7 @@ export class Button extends React.PureComponent<ButtonPropsType> {
           background-color: #309C4D;
         };
       `
-      : `
+  : `
         border: 1px solid #1D1F22;
         color: #1D1F22;
         :hover {
@@ -44,13 +41,24 @@ export class Button extends React.PureComponent<ButtonPropsType> {
         :active {
           background-color: #CCCCCC;
         };
+      `}
       `}      
     `;
 
+export class Button extends React.PureComponent<ButtonPropsType> {
+  render() {
+    const { type, width, height, fontSize, onButtonClick, children } = this.props;
+
     return (
-      <Button onClick={onButtonClick}>
+      <ButtonStyle
+        onClick={onButtonClick}
+        type={type}
+        width={width}
+        height={height}
+        fontSize={fontSize}
+      >
         <div>{children}</div>
-      </Button>
+      </ButtonStyle>
     );
   }
 }

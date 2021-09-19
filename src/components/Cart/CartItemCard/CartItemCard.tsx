@@ -23,7 +23,8 @@ import {
   Name,
   Price,
   Product,
-  RightArrow
+  RightArrow,
+  Label
 } from './CartItemCardStyles';
 import { SwatchAttributeButton } from '../../Buttons/SwatchAttributeButton';
 
@@ -94,24 +95,28 @@ class CartItemCard extends React.PureComponent<ChildProps<InputPropsType, Respon
           <Name>{name}</Name>
           <Price>{currentCurrencySymbol + amount}</Price>
           {attributes.length !== 0 && attributes.map(attribute =>
-            <Attributes key={attribute.id + id}>
-              {attribute.items.map(item =>
-                attribute.type === 'text'
-                  ? <AttributeButton
-                    key={item.id + id}
-                    isActive={product.attributes[attribute.id] === item.id}
-                    isSelected={product.attributes[attribute.id] === item.id}
-                  >{item.value}
-                  </AttributeButton>
-                  : <SwatchAttributeButton
-                    key={item.id}
-                    size={'large'}
-                    isActive={product.attributes[attribute.id] === item.id}
-                    isSelected={product.attributes[attribute.id] === item.id}
-                    color={item.value}
-                  />
-              )}
-            </Attributes>
+            <React.Fragment key={attribute.id + id}>
+              {attribute.items[0].id.toLowerCase() === 'yes' &&
+              <Label>{attribute.name}</Label>}
+              <Attributes>
+                {attribute.items.map(item =>
+                  attribute.type === 'text'
+                    ? <AttributeButton
+                      key={item.id + id}
+                      isActive={product.attributes[attribute.id] === item.id}
+                      isSelected={product.attributes[attribute.id] === item.id}
+                    >{item.value}
+                    </AttributeButton>
+                    : <SwatchAttributeButton
+                      key={item.id}
+                      size={'large'}
+                      isActive={product.attributes[attribute.id] === item.id}
+                      isSelected={product.attributes[attribute.id] === item.id}
+                      color={item.value}
+                    />
+                )}
+              </Attributes>
+            </React.Fragment>
           )}
         </Product>
         <ImageAndAmount>
@@ -135,8 +140,11 @@ class CartItemCard extends React.PureComponent<ChildProps<InputPropsType, Respon
           </AmountChange>
           <Image>
             <ItemImage src={gallery[this.state.imgId]} alt=""/>
-            <RightArrow onClick={this.onRightArrowClick} src={arrow} alt=""/>
-            <LeftArrow onClick={this.onLeftArrowClick} src={arrow} alt=""/>
+            {gallery.length > 2 &&
+            <>
+              <RightArrow onClick={this.onRightArrowClick} src={arrow} alt=""/>
+              <LeftArrow onClick={this.onLeftArrowClick} src={arrow} alt=""/>
+            </>}
           </Image>
         </ImageAndAmount>
       </ItemCard>

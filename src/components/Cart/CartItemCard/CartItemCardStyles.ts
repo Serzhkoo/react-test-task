@@ -33,6 +33,9 @@ export const Attributes = styled.div`
       grid-column-gap: 12px;
       margin-top: 15px;
     `;
+export const Label = styled.div`
+      margin-top: 16px;
+    `;
 export const ImageAndAmount = styled.div`
       display: flex;
       justify-content: flex-end;
@@ -51,13 +54,15 @@ export const Amount = styled.div`
 export const Image = styled.div`
       margin-left: 12px;
       position: relative;
+      display: flex;
+      align-items: center;
       img {
         display: block;                
       };
     `;
 export const ItemImage = styled.img`
         width: 141px;
-        height: 185px;
+        max-height: 185px;
         object-fit: cover;
     `;
 export const RightArrow = styled.img`

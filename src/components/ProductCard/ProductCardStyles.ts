@@ -19,6 +19,7 @@ export const MiniImages = styled.div`
 export const Image = styled.div`
       max-width: 670px;
       flex: 1 1 auto;
+      text-align: center;
       img {
         max-width: 100%;
         height: auto;

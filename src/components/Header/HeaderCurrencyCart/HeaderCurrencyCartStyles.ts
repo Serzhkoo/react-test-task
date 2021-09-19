@@ -45,15 +45,12 @@ export const NumberOfItems = styled.div`
       bottom: 35px;
     `;
 export const BackDrop = styled.div`
-      position: absolute;
-      top: 45px;
-      right: -100px;
+      position: fixed;
+      top: 78px;
+      left: 0;
       height: 100vh;
+      width: 100vw;
       background-color: rgba(57, 55, 72, 0.22);
-      @media (max-width: 1044px) {width: 768px};
-      @media (min-width: 1045px) and (max-width: 1220px) {width: 1024px};
-      @media (min-width: 1221px) and (max-width: 1460px) {width: 1200px};
-      @media (min-width: 1461px) {width: 1440px};
     `;
 export const HeaderCurrencyCartDiv = styled.div`
       margin-top: 33px;
@@ -66,4 +63,11 @@ export const HeaderCurrencyCartDiv = styled.div`
 export const CurrentCurrency = styled.div`
       cursor: pointer;
       display: flex;
+    `;
+export const Vector = styled.div<{areCurrenciesCollapsed: boolean}>`
+      margin-left: 10px;
+      img {
+        margin-bottom: 2px;
+        ${({areCurrenciesCollapsed}) => !areCurrenciesCollapsed && 'transform: scale(1, -1);'}
+      }
     `;

@@ -7,17 +7,9 @@ type HeaderButtonPropsType = {
   onButtonClick: () => void
 }
 
-export class HeaderButton extends React.PureComponent<HeaderButtonPropsType> {
-  onButtonClick = () => {
-    this.props.onButtonClick();
-  };
-
-  render() {
-    const { buttonName, isSelected } = this.props;
-
-    const HeaderButtonDiv = styled.div`
-      ${isSelected && 'border-bottom: 2px solid #5ECE7B'};
-      color: ${isSelected ? '#5ECE7B' : '#1D1F22'};
+const HeaderButtonDiv = styled.div<{ isSelected: boolean }>`
+      ${({ isSelected }) => isSelected && 'border-bottom: 2px solid #5ECE7B'};
+      color: ${({ isSelected }) => isSelected ? '#5ECE7B' : '#1D1F22'};
       font-weight: 600;
       font-size: 16px;
       cursor: pointer;
@@ -29,8 +21,16 @@ export class HeaderButton extends React.PureComponent<HeaderButtonPropsType> {
       }
     `;
 
+export class HeaderButton extends React.PureComponent<HeaderButtonPropsType> {
+  onButtonClick = () => {
+    this.props.onButtonClick();
+  };
+
+  render() {
+    const { buttonName, isSelected } = this.props;
+
     return (
-      <HeaderButtonDiv onClick={this.onButtonClick}>
+      <HeaderButtonDiv isSelected={isSelected} onClick={this.onButtonClick}>
         <div>
           {buttonName.toUpperCase()}
         </div>
